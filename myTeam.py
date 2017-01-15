@@ -4,7 +4,7 @@
 # educational purposes provided that (1) you do not distribute or publish
 # solutions, (2) you retain this notice, and (3) you provide clear
 # attribution to UC Berkeley, including a link to http://ai.berkeley.edu.
-# 
+#
 # Attribution Information: The Pacman AI projects were developed at UC Berkeley.
 # The core projects and autograders were primarily created by John DeNero
 # (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
@@ -290,8 +290,6 @@ class AttackAgent(ReflexCaptureAgent):
             self.lastScore = -1
 
 
-        if (self.getTeam(gameState) == gameState.getRedTeamIndices()):
-            print "myState{}".format(self.myState)
 
         if(self.myState==AttackAgent.START):
             if(officialScore>AttackAgent.MIN_VALID_SCORE):
@@ -359,9 +357,11 @@ class AttackAgent(ReflexCaptureAgent):
                         nearestFoodtoEnemy = food
                 features['defendFrontFood'] = -self.getMazeDistance(myPos,nearestFoodtoEnemy)
             if(nearestEnemy == None):
+                features['stop'] = 1
                 enemyfoods = self.getFood(gameState).asList()
                 minDistance = min([self.getMazeDistance(myPos, enemyfood) for enemyfood in enemyfoods])
                 features['defendFrontFood'] = -minDistance
+
 
 
             myState = successor.getAgentState(self.index)
@@ -395,7 +395,7 @@ class AttackAgent(ReflexCaptureAgent):
         if(self.myState==AttackAgent.DEFENCE):
             #samiei writes
             #return {'numInvaders': 10, 'onDefense': 100, 'invaderDistance': -100, 'stop': -1, 'reverse': -1, 'defendFrontFood':1000}
-            return {'numInvaders': 0, 'onDefense': 0, 'invaderDistance': 10, 'stop': 0, 'reverse': 0, 'defendFrontFood':1000,'isPacman':-100000}
+            return {'numInvaders': 0, 'onDefense': 0, 'invaderDistance': 10, 'stop': -2, 'reverse': 0, 'defendFrontFood':1000,'isPacman':-100000}
         return {'successorScore': 100, 'distanceToFood': -1}
 
     def chooseAction(self, gameState):
