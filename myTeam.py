@@ -288,12 +288,6 @@ class AttackAgent(ReflexCaptureAgent):
             self.lastEnemyFood = newEnemyFood
             self.myState=AttackAgent.START
             self.lastScore = -1
-        ## samie Writes
-        elif (newEnemyFood < self.lastEnemyFood):#Resets unformal Score because we have arrived to base
-            self.unFormalScore = 0
-            self.lastEnemyFood = newEnemyFood
-            self.myState=AttackAgent.START
-            self.lastScore = -1
 
 
         if (self.getTeam(gameState) == gameState.getRedTeamIndices()):
