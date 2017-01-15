@@ -160,7 +160,7 @@ class ReflexCaptureAgent(CaptureAgent):
             numCarrying = enemy.numCarrying
             if numCarrying > maxNumCarring:
                 maxNumCarring = numCarrying
-        print maxNumCarring
+        #print maxNumCarring
         return maxNumCarring
 
 
@@ -260,7 +260,7 @@ class AttackAgent(ReflexCaptureAgent):
     DEFENCE = 2
     RETREAT = 3
 
-    MIN_VALID_SCORE = 10
+    MIN_VALID_SCORE = 2
     MAX_CARRY_VAL = 2
     ENEMY_MAX_CARRY = 4
 
