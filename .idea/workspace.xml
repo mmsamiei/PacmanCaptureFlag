@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3ee65e37-4bc3-4737-ad45-cd6657ce2993" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/baselineTeam.py" afterPath="$PROJECT_DIR$/baselineTeam.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/captureAgents.py" afterPath="$PROJECT_DIR$/captureAgents.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/captureGraphicsDisplay.py" afterPath="$PROJECT_DIR$/captureGraphicsDisplay.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game.py" afterPath="$PROJECT_DIR$/game.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myTeam.py" afterPath="$PROJECT_DIR$/myTeam.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/score" afterPath="$PROJECT_DIR$/score" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/textDisplay.py" afterPath="$PROJECT_DIR$/textDisplay.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,8 +29,8 @@
       <file leaf-file-name="myTeam.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myTeam.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="292" column="34" lean-forward="true" selection-start-line="292" selection-start-column="34" selection-end-line="292" selection-end-column="34" />
+            <state relative-caret-position="404">
+              <caret line="312" column="41" lean-forward="true" selection-start-line="312" selection-start-column="41" selection-end-line="312" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -445,13 +438,13 @@
     <frame x="59" y="24" width="1861" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2556474" sideWeight="0.49455675" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2556474" sideWeight="0.49455675" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985386" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.5018807" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985386" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881" sideWeight="0.4981193" order="8" side_tool="false" content_ui="tabs" x="82" y="422" width="1815" height="315" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32776618" sideWeight="0.49596992" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32776618" sideWeight="0.49596992" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985386" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25289255" sideWeight="0.5054432" order="2" side_tool="true" content_ui="tabs" />
@@ -788,8 +781,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myTeam.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="292" column="34" lean-forward="true" selection-start-line="292" selection-start-column="34" selection-end-line="292" selection-end-column="34" />
+        <state relative-caret-position="404">
+          <caret line="312" column="41" lean-forward="true" selection-start-line="312" selection-start-column="41" selection-end-line="312" selection-end-column="41" />
           <folding />
         </state>
       </provider>

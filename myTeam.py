@@ -297,9 +297,7 @@ class AttackAgent(ReflexCaptureAgent):
 
 
         if (self.getTeam(gameState) == gameState.getRedTeamIndices()):
-            print "myState{}".format(self.myState);
-            print ":::"
-            print self.unFormalScore
+            print "myState{}".format(self.myState)
 
         if(self.myState==AttackAgent.START):
             if(officialScore>AttackAgent.MIN_VALID_SCORE):
@@ -315,6 +313,7 @@ class AttackAgent(ReflexCaptureAgent):
             if(self.isPacman(gameState)):
                 self.myState = AttackAgent.RETREAT
             else:
+                self.unFormalScore = 0
                 if (officialScore > AttackAgent.MIN_VALID_SCORE):
                     self.myState = AttackAgent.DEFENCE
                 else:
