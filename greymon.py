@@ -53,9 +53,20 @@ team = []
 
 
 class ReflexCaptureAgent(CaptureAgent):
+    MAP_WIDTH = 32
+    MAP_HEIGHT = 16
+
     def __init__(self, index, timeForComputing=.1):
         CaptureAgent.__init__(self, index, timeForComputing)
         team.append(self)
+        if self.index % 2 == 0:
+            self.isRed = True
+        else:
+            self.isRed = False
+        if self.isRed:
+            self.middle = (ReflexCaptureAgent.MAP_WIDTH / 4, ReflexCaptureAgent.MAP_HEIGHT / 2)
+        else:
+            self.middle = (ReflexCaptureAgent.MAP_WIDTH * 3 / 4), (ReflexCaptureAgent.MAP_HEIGHT / 2)
 
     """
     A base class for reflex agents that chooses score-maximizing actions
@@ -159,7 +170,9 @@ class ReflexCaptureAgent(CaptureAgent):
                 newEnemy = gameState.getAgentState(i)
                 newEnemy.agentIndex = i
                 if newEnemy not in enemies:
-                    enemies.append(newEnemy)
+                    myPos = newEnemy.getPosition()
+                    if myPos is not None:
+                        enemies.append(newEnemy)
         return enemies
 
     def getMaxEnemyCarry(self, gameState):
@@ -249,32 +262,71 @@ class DefenceAgent(ReflexCaptureAgent):
         invaders = [a for a in enemies if a.isPacman and a.getPosition() is not None]
         features['numInvaders'] = len(invaders)
         features['enemyDistance'] = 999
+        enemyIsUnknown = True
         if len(invaders) > 0:
+            # print "invedor"
             dists = [self.getMazeDistance(myPos, a.getPosition()) for a in invaders]
             features['invaderDistance'] = min(dists)
+            enemyIsUnknown = False
         else:
+            # print "enemy exists"
             minDist = 999
             currentEnemies = self.getEnemies(gameState)
             for enemy in currentEnemies:
                 pos = enemy.getPosition()
                 if pos is not None:
+                    enemyIsUnknown = False
                     newDist = self.getMazeDistance(myPos, pos)
                     if newDist < minDist:
                         minDist = newDist
             features['enemyDistance'] = minDist
 
-        if len(enemies) == 0:
+        if enemyIsUnknown is True:
+            # print "no enemy"
             myPos = successor.getAgentState(self.index).getPosition()
-            foodList = self.getFood(successor).asList()
-            minDistance = min([self.getMazeDistance(myPos, food) for food in foodList])
-            features['enemyDistance'] = minDistance
-            print "enemy :{}".format(features['enemyDistance'])
+            capsoleList = self.getCapsulesYouAreDefending(successor)
+            foodList = self.getFoodYouAreDefending(successor).asList()
+            minDist = 0
+            if len(capsoleList) > 0:
+                for capsole in capsoleList:
+                    dist = self.getMazeDistance(capsole, myPos)
+                    minDist += dist
+                minDist /= len(capsoleList)
+            else:
+                for food in foodList:
+                    dist = self.getMazeDistance(food, myPos)
+                    minDist += dist
+                minDist /= len(foodList)
+            # print minDist
+            # minDist = self.getMazeDistance(self.middle, myPos)
+            # finalMinFood = 999
+            # if len(capsoleList) > 0:
+            #     for capsole in capsoleList:
+            #         minFood = min([self.getMazeDistance(capsole, food) for food in foodList])
+            #         if minFood < finalMinFood:
+            #             finalMinFood = minFood
+            # else:
+            #     finalMinFood = min([self.getMazeDistance(myPos, food) for food in foodList])
+            # minCapsuleDist = 0
+            # agentList = self.getTeam(gameState)
+            # agentIndex = -1
+            # for agent in agentList:
+            #     if agent != self.index:
+            #         agentIndex = agent
+            # alyState = successor.getAgentState(agentIndex)
+            # alyPos = alyState.getPosition()
+            # for capsule in capsoleList:
+            #     capsuleDist = self.getMazeDistance(capsule, alyPos)
+            #     if minCapsuleDist > capsuleDist:
+            #         minCapsuleDist = capsuleDist
+            features['enemyDistance'] = minDist
+            # print "enemy :{}".format(features['enemyDistance'])
 
         if action == Directions.STOP:
             features['stop'] = 1
         rev = Directions.REVERSE[gameState.getAgentState(self.index).configuration.direction]
         if action == rev:
-            features['reverse'] = 1
+            features['reverse'] = 0
 
         return features
 
@@ -283,9 +335,9 @@ class DefenceAgent(ReflexCaptureAgent):
             'numInvaders': -1000,
             'onDefense': 100,
             'invaderDistance': -10,
-                'stop': -100,
+            'stop': -100,
             'reverse': -2,
-            'enemyDistance': -5
+            'enemyDistance': -10
         }
 
 
@@ -448,8 +500,10 @@ class AttackAgent(ReflexCaptureAgent):
                     if self.getMazeDistance(food, nearestEnemy.getPosition()) < minFoodToEnemy:
                         minFoodToEnemy = self.getMazeDistance(food, nearestEnemy.getPosition())
                         nearestFoodtoEnemy = food
-                features['defendFrontFood'] = -self.getMazeDistance(myPos, nearestFoodtoEnemy)
-
+                if nearestFoodtoEnemy is not None:
+                    features['defendFrontFood'] = -self.getMazeDistance(myPos, nearestFoodtoEnemy)
+                else:
+                    features['defendFrontFood'] = 0
             if nearestEnemy is None:
                 features['stop'] = 1
                 enemyfoods = self.getFood(gameState).asList()
