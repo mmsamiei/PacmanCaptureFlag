@@ -274,7 +274,7 @@ class AttackAgent(ReflexCaptureAgent):
     DEFENCE = 2
     RETREAT = 3
 
-    MIN_VALID_SCORE = 2
+    MIN_VALID_SCORE = 20
     MAX_CARRY_VAL = 2
     ENEMY_MAX_CARRY = 4
 
@@ -496,7 +496,7 @@ class AttackAgent(ReflexCaptureAgent):
         if self.myState == AttackAgent.DEFENCE:
             # samiei writes
             # return {'numInvaders': 10, 'onDefense': 100, 'invaderDistance': -100, 'stop': -1, 'reverse': -1, 'defendFrontFood':1000}
-            return {'numInvaders': 0, 'onDefense': 0, 'invaderDistance': 10, 'stop': 0, 'reverse': 0,
+            return {'numInvaders': 0, 'onDefense': 0, 'invaderDistance': 10, 'stop': -1, 'reverse': 0,
                     'defendFrontFood': 1000, 'isPacman': -100000}
 
         if self.myState == AttackAgent.ATTACK:
