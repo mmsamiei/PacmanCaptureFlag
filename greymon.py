@@ -49,7 +49,14 @@ def createTeam(firstIndex, secondIndex, isRed,
 # Agents #
 ##########
 
+team = []
+
+
 class ReflexCaptureAgent(CaptureAgent):
+    def __init__(self, index, timeForComputing=.1):
+        CaptureAgent.__init__(self, index, timeForComputing)
+        team.append(self)
+
     """
     A base class for reflex agents that chooses score-maximizing actions
     """
@@ -147,10 +154,12 @@ class ReflexCaptureAgent(CaptureAgent):
 
     def getEnemies(self, gameState):
         enemies = []
-        for i in self.getOpponents(gameState):
-            newEnemy = gameState.getAgentState(i)
-            newEnemy.agentIndex = i
-            enemies.append(newEnemy)
+        for j in team:
+            for i in j.getOpponents(gameState):
+                newEnemy = gameState.getAgentState(i)
+                newEnemy.agentIndex = i
+                if newEnemy not in enemies:
+                    enemies.append(newEnemy)
         return enemies
 
     def getMaxEnemyCarry(self, gameState):
@@ -160,7 +169,6 @@ class ReflexCaptureAgent(CaptureAgent):
             numCarrying = enemy.numCarrying
             if numCarrying > maxNumCarring:
                 maxNumCarring = numCarrying
-        print maxNumCarring
         return maxNumCarring
 
 
@@ -237,7 +245,7 @@ class DefenceAgent(ReflexCaptureAgent):
             features['onDefense'] = 0
 
         # Computes distance to invaders we can see
-        enemies = [successor.getAgentState(i) for i in self.getOpponents(successor)]
+        enemies = self.getEnemies(gameState)
         invaders = [a for a in enemies if a.isPacman and a.getPosition() is not None]
         features['numInvaders'] = len(invaders)
         features['enemyDistance'] = 999
@@ -255,6 +263,13 @@ class DefenceAgent(ReflexCaptureAgent):
                         minDist = newDist
             features['enemyDistance'] = minDist
 
+        if len(enemies) == 0:
+            myPos = successor.getAgentState(self.index).getPosition()
+            foodList = self.getFood(successor).asList()
+            minDistance = min([self.getMazeDistance(myPos, food) for food in foodList])
+            features['enemyDistance'] = minDistance
+            print "enemy :{}".format(features['enemyDistance'])
+
         if action == Directions.STOP:
             features['stop'] = 1
         rev = Directions.REVERSE[gameState.getAgentState(self.index).configuration.direction]
@@ -264,8 +279,8 @@ class DefenceAgent(ReflexCaptureAgent):
         return features
 
     def getWeights(self, gameState, action):
-        return {'numInvaders': -1000, 'onDefense': 100, 'invaderDistance': -10,
-                'stop': -100, 'reverse': -2, 'enemyDistance': -5}
+        return {'numInvaders': -1000, 'onDefense': 100, 'invaderDistance': -100,
+                'stop': -100, 'reverse': -2, 'enemyDistance': -50}
 
 
 class AttackAgent(ReflexCaptureAgent):
@@ -274,7 +289,7 @@ class AttackAgent(ReflexCaptureAgent):
     DEFENCE = 2
     RETREAT = 3
 
-    MIN_VALID_SCORE = 10
+    MIN_VALID_SCORE = 5
     MAX_CARRY_VAL = 2
     ENEMY_MAX_CARRY = 4
 
@@ -503,7 +518,6 @@ class AttackAgent(ReflexCaptureAgent):
             return {'successorScore': 100, 'distanceToFood': -1, 'distanceToCapsole': -1.2}
 
         return {'successorScore': 100, 'distanceToFood': -1, 'distanceToCapsole': -1}
-
 
     def chooseAction(self, gameState):
 
