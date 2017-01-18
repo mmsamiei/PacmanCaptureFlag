@@ -427,7 +427,8 @@ class AttackAgent(ReflexCaptureAgent):
                     if self.getMazeDistance(food, nearestEnemy.getPosition()) < minFoodToEnemy:
                         minFoodToEnemy = self.getMazeDistance(food, nearestEnemy.getPosition())
                         nearestFoodtoEnemy = food
-                features['defendFrontFood'] = -self.getMazeDistance(myPos, nearestFoodtoEnemy)
+                    if nearestFoodtoEnemy is not None:
+                        features['defendFrontFood'] = -self.getMazeDistance(myPos, nearestFoodtoEnemy)
 
             if nearestEnemy is None:
                 features['stop'] = 1
